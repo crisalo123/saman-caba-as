@@ -1,0 +1,157 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-family-display: 'Fraunces', Georgia, serif;
+  --font-family-sans: 'Manrope', system-ui, sans-serif;
+
+  /* Paleta bosque samán: oliva suave → blanco (sin azul) */
+  --color-forest: #f3f5ef;
+  --color-moss: #ffffff;
+  --color-leaf: #3f6b4a;
+  --color-mist: #e6ebe0;
+  --color-sand: #1c2a22;
+  --color-wood: #8a9a7a;
+  --color-sun: #b8954a;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased text-sand;
+    font-family: var(--font-family-sans);
+    background-color: #f7f8f3;
+    background-image: linear-gradient(
+      180deg,
+      #e8ede3 0%,
+      #f0f3eb 35%,
+      #f7f8f3 65%,
+      #ffffff 100%
+    );
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-leaf) 40%, transparent);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-family-display);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .palm-wipe-next {
+    animation: palm-wipe-next 0.75s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+
+  .palm-wipe-prev {
+    animation: palm-wipe-prev 0.75s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+}
+
+@keyframes palm-wipe-next {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    transform: scale(1.08) rotate(-1.5deg);
+    filter: saturate(0.7);
+  }
+  55% {
+    clip-path: polygon(0 0, 88% 0, 72% 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: scale(1) rotate(0deg);
+    filter: saturate(1);
+  }
+}
+
+@keyframes palm-wipe-prev {
+  0% {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    transform: scale(1.08) rotate(1.5deg);
+    filter: saturate(0.7);
+  }
+  55% {
+    clip-path: polygon(18% 0, 100% 0, 100% 100%, 32% 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: scale(1) rotate(0deg);
+    filter: saturate(1);
+  }
+}
+
+@keyframes palm-sway {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+
+/* Banner: desvanecido suave hacia verde niebla / blanco */
+.hero-fade {
+  background: linear-gradient(
+    to bottom,
+    rgba(28, 42, 34, 0.15) 0%,
+    rgba(28, 42, 34, 0.05) 35%,
+    rgba(232, 237, 227, 0.12) 55%,
+    rgba(240, 243, 235, 0.45) 72%,
+    rgba(247, 248, 243, 0.88) 88%,
+    #f7f8f3 100%
+  );
+}
+
+/* Neblina de tinta detrás del copy — sin caja ni bordes */
+.hero-ink-veil {
+  position: absolute;
+  z-index: -1;
+  inset: -15% -18% -25% -12%;
+  background: radial-gradient(
+    ellipse 70% 65% at 28% 55%,
+    rgba(18, 32, 24, 0.55) 0%,
+    rgba(28, 42, 34, 0.28) 42%,
+    rgba(28, 42, 34, 0) 72%
+  );
+  filter: blur(34px);
+  pointer-events: none;
+}
+
+/* Tipografía cinemática: legible sobre foto sin panel blanco */
+.hero-type {
+  text-shadow:
+    0 1px 0 rgba(18, 32, 24, 0.35),
+    0 8px 28px rgba(18, 32, 24, 0.55),
+    0 2px 8px rgba(18, 32, 24, 0.4);
+}
+
+/* Brillo dorado en cada letra de “Samán” (compatible con AssembleText) */
+.hero-saman-glow [data-piece] {
+  background: linear-gradient(
+    120deg,
+    #d4b56a 0%,
+    #f0e2b8 40%,
+    #b8954a 70%,
+    #e8d49a 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: saman-shimmer 4.5s ease-in-out infinite;
+  filter: drop-shadow(0 2px 8px rgba(18, 32, 24, 0.5));
+}
+
+@keyframes saman-shimmer {
+  0%,
+  100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+}
