@@ -14,7 +14,7 @@ export function CabinGrid({ onReserve }: CabinGridProps) {
           Elige tu refugio
         </h2>
         <p className="mt-4 max-w-2xl text-sand/65">
-          Cada cabaña con su capacidad, camas y espacios.
+          Pareja, Medium, Medium Plus y Maxi — con desayuno incluido.
         </p>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-2">

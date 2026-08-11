@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react'
 import { cabins } from '@/infrastructure/data/cabins'
+import { faqs } from '@/infrastructure/data/faqs'
 import { formatDisplayDate, MiniCalendar } from '@/presentation/components/MiniCalendar'
 import { PalmIcon } from '@/presentation/components/PalmIcon'
 import { useWhatsApp } from '@/presentation/hooks/useWhatsApp'
 
-type Step = 'closed' | 'menu' | 'date' | 'people' | 'cabin' | 'summary' | 'done'
+type Step = 'closed' | 'menu' | 'faq' | 'faq-answer' | 'date' | 'people' | 'cabin' | 'summary' | 'done'
 
 type ChatBoxProps = {
   forceOpen?: boolean
@@ -18,6 +19,7 @@ export function ChatBox({ forceOpen = false }: ChatBoxProps) {
   const [date, setDate] = useState<string | null>(null)
   const [people, setPeople] = useState(2)
   const [cabinId, setCabinId] = useState<string | null>(null)
+  const [faqId, setFaqId] = useState<string | null>(null)
   const { openChat, sendReservation } = useWhatsApp()
 
   const matchedCabins = useMemo(
@@ -26,12 +28,14 @@ export function ChatBox({ forceOpen = false }: ChatBoxProps) {
   )
 
   const selectedCabin = cabins.find((c) => c.id === cabinId) ?? null
+  const selectedFaq = faqs.find((f) => f.id === faqId) ?? null
   const dateLabel = date ? formatDisplayDate(date) : ''
 
   const resetFlow = () => {
     setDate(null)
     setPeople(2)
     setCabinId(null)
+    setFaqId(null)
     setStep('menu')
   }
 
@@ -82,6 +86,36 @@ export function ChatBox({ forceOpen = false }: ChatBoxProps) {
             <button type="button" onClick={() => setStep('date')} className={btnClass}>
               Sí, quiero reservar
             </button>
+            <button type="button" onClick={() => setStep('faq')} className={btnClass}>
+              Solo tengo una pregunta
+            </button>
+          </>
+        ) : null}
+
+        {step === 'faq' ? (
+          <>
+            <button type="button" onClick={() => setStep('menu')} className="text-xs text-leaf underline">
+              ← Volver
+            </button>
+            <p className="rounded-2xl bg-mist px-3 py-2">
+              Elige una pregunta frecuente:
+            </p>
+            <ul className="space-y-2">
+              {faqs.map((item) => (
+                <li key={item.id}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setFaqId(item.id)
+                      setStep('faq-answer')
+                    }}
+                    className={btnClass}
+                  >
+                    {item.question}
+                  </button>
+                </li>
+              ))}
+            </ul>
             <button
               type="button"
               onClick={() =>
@@ -89,9 +123,44 @@ export function ChatBox({ forceOpen = false }: ChatBoxProps) {
                   'Hola, quiero información general de Cabañas el Samán. ¿Me ayudan?',
                 )
               }
+              className="w-full text-center text-xs text-leaf underline"
+            >
+              Preferimos escribir por WhatsApp
+            </button>
+          </>
+        ) : null}
+
+        {step === 'faq-answer' && selectedFaq ? (
+          <>
+            <button type="button" onClick={() => setStep('faq')} className="text-xs text-leaf underline">
+              ← Otras preguntas
+            </button>
+            <p className="rounded-2xl border border-leaf/20 bg-mist px-3 py-2 text-xs font-semibold text-leaf">
+              {selectedFaq.question}
+            </p>
+            <p className="whitespace-pre-line rounded-2xl bg-mist px-3 py-3 leading-relaxed">
+              {selectedFaq.answer}
+            </p>
+            <button type="button" onClick={() => setStep('faq')} className={btnClass}>
+              Otra pregunta
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                openChat(
+                  `Hola, vi en la web la pregunta "${selectedFaq.question}" y quiero más información. ¿Me ayudan?`,
+                )
+              }
               className={btnClass}
             >
-              Solo tengo una pregunta
+              Escribir por WhatsApp
+            </button>
+            <button
+              type="button"
+              onClick={() => setStep('menu')}
+              className="w-full text-center text-xs text-sand/45 underline"
+            >
+              Volver al menú
             </button>
           </>
         ) : null}

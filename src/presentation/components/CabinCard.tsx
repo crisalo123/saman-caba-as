@@ -80,7 +80,9 @@ export function CabinCard({ cabin, onReserve }: CabinCardProps) {
           <div>
             {price ? (
               <>
-                <p className="text-[10px] uppercase tracking-wider text-sand/45">Desde</p>
+                <p className="text-[10px] uppercase tracking-wider text-sand/45">
+                  Por noche
+                </p>
                 <p className="font-semibold text-sand">{price}</p>
               </>
             ) : (
