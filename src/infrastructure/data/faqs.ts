@@ -2,6 +2,8 @@ export type FaqItem = {
   id: string
   question: string
   answer: string
+  /** Palabras clave para autocompletar al escribir. */
+  keywords: string[]
 }
 
 /** Preguntas frecuentes (contenido del cliente). */
@@ -9,6 +11,15 @@ export const faqs: FaqItem[] = [
   {
     id: 'ubicacion',
     question: '¿Dónde están ubicados?',
+    keywords: [
+      'ubicacion',
+      'donde',
+      'direccion',
+      'villavicencio',
+      'llegar',
+      'mapa',
+      'apiay',
+    ],
     answer: [
       'Bienvenidos a Cabañas El Samán.',
       '',
@@ -19,6 +30,16 @@ export const faqs: FaqItem[] = [
   {
     id: 'precios',
     question: '¿Cuáles son los precios?',
+    keywords: [
+      'precio',
+      'precios',
+      'valor',
+      'cuanto',
+      'cuesta',
+      'tarifa',
+      'noche',
+      'costo',
+    ],
     answer: [
       'Contamos con:',
       '',
@@ -35,6 +56,7 @@ export const faqs: FaqItem[] = [
   {
     id: 'maxi',
     question: 'Cabaña Maxi (8 personas)',
+    keywords: ['maxi', '8', 'ocho', 'grande', 'familiar grande'],
     answer: [
       'Capacidad: 8 personas',
       '',
@@ -51,6 +73,7 @@ export const faqs: FaqItem[] = [
   {
     id: 'medium-plus',
     question: 'Cabaña Medium Plus (6)',
+    keywords: ['medium plus', 'plus', '6', 'seis'],
     answer: [
       'Capacidad: 6 personas',
       '',
@@ -66,6 +89,7 @@ export const faqs: FaqItem[] = [
   {
     id: 'medium',
     question: 'Cabaña Medium (5)',
+    keywords: ['medium', 'media', '5', 'cinco'],
     answer: [
       'Capacidad: 5 personas',
       '',
@@ -81,6 +105,7 @@ export const faqs: FaqItem[] = [
   {
     id: 'pareja',
     question: 'Cabaña de pareja',
+    keywords: ['pareja', 'romantica', 'dos', '2', 'matrimonial'],
     answer: [
       'Consta de:',
       '• 1 habitación con cama doble (matrimonial)',
@@ -93,6 +118,15 @@ export const faqs: FaqItem[] = [
   {
     id: 'horarios',
     question: 'Check-in y check-out',
+    keywords: [
+      'check',
+      'checkin',
+      'checkout',
+      'horario',
+      'entrada',
+      'salida',
+      'hora',
+    ],
     answer: [
       '• Ingreso a piscina y áreas sociales desde las 11:00 am',
       '• Check-in a las habitaciones: 3:00 pm',
@@ -103,6 +137,7 @@ export const faqs: FaqItem[] = [
   {
     id: 'reservar',
     question: '¿Qué datos necesito para reservar?',
+    keywords: ['datos', 'anticipo', 'reserva', 'reservar', 'documentos'],
     answer: [
       'Para reservar necesitamos:',
       '',
@@ -117,6 +152,15 @@ export const faqs: FaqItem[] = [
   {
     id: 'restaurante',
     question: 'Restaurante y menú',
+    keywords: [
+      'restaurante',
+      'menu',
+      'comida',
+      'almuerzo',
+      'mojarra',
+      'churrasco',
+      'platos',
+    ],
     answer: [
       'Abierto todos los días hasta las 5:00 pm.',
       '',
@@ -130,6 +174,14 @@ export const faqs: FaqItem[] = [
   {
     id: 'decoraciones',
     question: 'Decoraciones y cenas especiales',
+    keywords: [
+      'decoracion',
+      'decoraciones',
+      'cena',
+      'especial',
+      'aniversario',
+      'cumpleanos',
+    ],
     answer: [
       '• Decoración en habitación: $60.000',
       '• Decoración en mesa: $50.000',
@@ -139,6 +191,15 @@ export const faqs: FaqItem[] = [
   {
     id: 'mascotas',
     question: '¿Aceptan mascotas?',
+    keywords: [
+      'mascota',
+      'mascotas',
+      'perro',
+      'perrito',
+      'pet',
+      'dog',
+      'animal',
+    ],
     answer: [
       'Somos pet friendly: amigos de los perritos, excepto pitbull, doberman, rottweiler o cualquier otra raza agresiva o grande que pueda intimidar a niños, huéspedes u otras mascotas.',
       '',
@@ -148,6 +209,7 @@ export const faqs: FaqItem[] = [
   {
     id: 'pasadia',
     question: '¿Tienen pasadía?',
+    keywords: ['pasadia', 'dia', 'day', 'solo dia', 'sin noche'],
     answer: [
       'Pasadía en Cabañas El Samán incluye uso de todas las áreas sociales:',
       'piscina, bar, billar, bolirana, rana, restaurante y parrilla para asados.',
@@ -160,6 +222,14 @@ export const faqs: FaqItem[] = [
   {
     id: 'exclusividad',
     question: '¿Alquilan en exclusividad?',
+    keywords: [
+      'exclusividad',
+      'exclusivo',
+      'todo el lugar',
+      'completo',
+      'privado',
+      'evento',
+    ],
     answer: [
       'Sí.',
       '',
@@ -173,3 +243,13 @@ export const faqs: FaqItem[] = [
     ].join('\n'),
   },
 ]
+
+/** Chips rápidos cuando el input está vacío. */
+export const faqQuickChips = [
+  'precios',
+  'mascotas',
+  'check-in',
+  'pasadía',
+  'ubicación',
+  'exclusividad',
+] as const
